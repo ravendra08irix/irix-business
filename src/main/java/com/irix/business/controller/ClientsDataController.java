@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,41 +22,46 @@ public class ClientsDataController {
 	@Autowired
 	private ClientsDataService clientsDataService;
 
-//	@PostMapping("/create")
-//	public ResponseEntity<ClientsData> createUser(@RequestBody ClientsData clientsData) {
-//		try {
-//			ClientsData savedData = clientsDataService.createClient(clientsData);
-//			return ResponseEntity.ok(savedData);
-//		} catch (Exception e) {
-//			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-//		}
 
-//	}
+	
+	
+	@GetMapping("/test")
+	public String test() {
+		return "Application Working";
+	}
 
 	@PostMapping("/create")
-	public ResponseEntity<ClientsData> createUser(@RequestParam("name") String name,
-			@RequestParam("company") String company, @RequestParam("designation") String designation,
-			@RequestParam("phoneNumber") String phoneNumber, @RequestParam("website") String website,
-			@RequestParam("industryType") String industryType,
-			@RequestParam("otherIndustryType") String otherIndustryType, @RequestParam("interested") String interested,
-			@RequestParam("otherInterested") String otherInterested, @RequestParam("photo") MultipartFile photo) {
-		try {
-			ClientsData clientsData = new ClientsData();
-			clientsData.setName(name);
-			clientsData.setCompany(company);
-			clientsData.setDesignation(designation);
-			clientsData.setPhoneNumber(phoneNumber);
-			clientsData.setWebsite(website);
-			clientsData.setIndustryType(industryType);
-			clientsData.setOtherIndustryType(otherIndustryType);
-			clientsData.setInterested(interested);
-			clientsData.setOtherInterested(otherInterested);
-			clientsData.setPhoto(photo.getBytes());
+	public ResponseEntity<ClientsData> createUser(
+	        @RequestParam(value = "name", required = false) String name,
+	        @RequestParam(value = "company", required = false) String company,
+	        @RequestParam(value = "designation", required = false) String designation,
+	        @RequestParam(value = "phoneNumber", required = false) String phoneNumber,
+	        @RequestParam(value = "website", required = false) String website,
+	        @RequestParam(value = "industryType", required = false) String industryType,
+	        @RequestParam(value = "otherIndustryType", required = false) String otherIndustryType,
+	        @RequestParam(value = "interested", required = false) String interested,
+	        @RequestParam(value = "otherInterested", required = false) String otherInterested,
+	        @RequestParam(value = "photo", required = false) MultipartFile photo) {
+	    try {
+	        ClientsData clientsData = new ClientsData();
+	        clientsData.setName(name);
+	        clientsData.setCompany(company);
+	        clientsData.setDesignation(designation);
+	        clientsData.setPhoneNumber(phoneNumber);
+	        clientsData.setWebsite(website);
+	        clientsData.setIndustryType(industryType);
+	        clientsData.setOtherIndustryType(otherIndustryType);
+	        clientsData.setInterested(interested);
+	        clientsData.setOtherInterested(otherInterested);
+	        if (photo != null) {
+	            clientsData.setPhoto(photo.getBytes());
+	        }
 
-			ClientsData savedData = clientsDataService.createClient(clientsData);
-			return ResponseEntity.ok(savedData);
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-		}
+	        ClientsData savedData = clientsDataService.createClient(clientsData);
+	        return ResponseEntity.ok(savedData);
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+	    }
 	}
+
 }

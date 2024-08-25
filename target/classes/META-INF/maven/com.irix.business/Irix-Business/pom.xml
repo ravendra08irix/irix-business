@@ -13,7 +13,8 @@
 	<artifactId>Irix-Business</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Irix-Business</name>
-	<description>This is an Irix-Business Backend application.</description>
+<!--	<packaging>war</packaging>
+-->	<description>This is an Irix-Business Backend application.</description>
 	<url />
 	<licenses>
 		<license />
@@ -79,6 +80,8 @@
 				</configuration>
 			</plugin>
 		</plugins>
-	</build>
+<!--		<finalName>irix-business</finalName>
+-->	
+</build>
 
 </project>
